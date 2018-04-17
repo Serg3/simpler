@@ -5,6 +5,8 @@ class TestsController < Simpler::Controller
 
     status 201
 
+    headers['Some-Header'] = 'Title'
+
     render plain: "#{@time}"
     # render inline: "<%= @time %>"
   end
