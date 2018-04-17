@@ -11,6 +11,10 @@ class TestsController < Simpler::Controller
     # render inline: "<%= @time %>"
   end
 
+  def show
+    @params = params
+  end
+
   def create
 
   end
