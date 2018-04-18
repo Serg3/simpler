@@ -1,3 +1,5 @@
+require 'logger'
+
 class AppLog
 
   def initialize(app)
@@ -8,7 +10,10 @@ class AppLog
     status, headers, response = @app.call(env)
 
     log = build_log(env, status, headers)
-    File.open('log/app.log', 'a+') { |file| file.write(log) }
+
+    logger = Logger.new('log/app.log')
+    logger.info() { "\n#{log}" }
+    logger.close
 
     [status, headers, response]
   end
@@ -21,4 +26,5 @@ class AppLog
     "Parameters: #{env['simpler.params']}\n" \
     "Response: #{status} #{headers['Content-Type']} #{env['simpler.render_view']}\n" \
   end
+
 end
